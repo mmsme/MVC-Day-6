@@ -18,5 +18,7 @@ namespace MVC_Day_6.Models
         public int CourseId { get; set; }
         [ForeignKey("CourseId")]
         public Course Course { get; set; }
+        [Range(0, 100)]
+        public int Degree { set; get; }
     }
 }

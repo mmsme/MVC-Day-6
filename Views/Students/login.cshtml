@@ -1,0 +1,26 @@
+﻿@model MVC_Day_6.Models.LoginModel
+@{
+    ViewBag.Title = "login";
+}
+
+<div class="card mt-5 offset-0 col-12 offset-lg-4 col-lg-4  text-center">
+    <div class="card-body ">
+        
+            @using (Html.BeginForm("login", "students", FormMethod.Post))
+            {
+                <p class="h3 text-success m-4"> Login </p>
+
+
+                @Html.TextBoxFor(a => a.Email, new { @class = "form-control", placeholder = "Email", name = "email" })
+                @Html.ValidationMessageFor(a => a.Email)
+                @Html.TextBoxFor(a => a.Password, new { type = "password", @class = "form-control mt-2", name = "password", placeholder = "Password" })
+                @Html.ValidationMessageFor(a => a.Password)
+
+                <button type="submit" class="btn btn-block btn-success mb-4 mt-4"> Login</button>
+               }
+        
+
+
+    </div>
+</div>
+

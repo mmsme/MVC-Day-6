@@ -1,0 +1,28 @@
+﻿@model List<Course>
+@{
+    ViewBag.Title = "manageCourse";
+}
+
+<h2>Manage @ViewBag.dept.DeptName Courses</h2>
+ <table class="table">
+        <tr class="thead-dark">
+            <th>Course Name</th>
+            <th></th>
+            
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CourseName</td>
+                <td class="d-flex justify-content-end">
+                    @Html.ActionLink("Add Student", "addStudents", "Courses", new { id = item.CourseId, deptId = ViewBag.dept.Id }, new { @class = "btn btn-success mr-2" })
+                    @Html.ActionLink("Remove Student", "deleteStudents", "Courses", new { id = item.CourseId, deptId = ViewBag.dept.Id }, new { @class = "btn btn-danger mr-2" })
+                </td>
+            </tr>
+        }
+</table>
+
+@Html.ActionLink("Back To List", "index", "Departments", new { @class = "btn btn-warning" })
+   
+
+

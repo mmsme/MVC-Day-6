@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MVC_Day_6.Models.Course>
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+<h2 class="display-4">Courses</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success mt-3" })
+</p>
+<table class="table table-hover">
+    <tr class="thead-dark">
+        <th>
+            @Html.DisplayNameFor(model => model.CourseName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseName)
+        </td>
+        <td class="d-flex justify-content-end">
+            @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }, new { @class = "btn btn-primary mr-2" })
+            @Html.ActionLink("Details", "Details", new { id = item.CourseId }, new { @class = "btn btn-warning mr-2" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.CourseId }, new { @class = "btn btn-danger mr-2" })
+            @Html.ActionLink("Add in Dept", "addInDept", "Courses", new { id = item.CourseId }, new { @class = "btn btn-info mr-2" })
+            @Html.ActionLink("Delete From Dept", "deleteFromDept", "Courses", new { id = item.CourseId }, new { @class = "btn btn-secondary" })
+        </td>
+    </tr>
+}
+
+</table>

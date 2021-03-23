@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Day_6;
+using MVC_Day_6.Filters;
 using MVC_Day_6.Models;
 
 namespace MVC_Day_6.Controllers
@@ -15,12 +16,14 @@ namespace MVC_Day_6.Controllers
     {
         private ITIModel db = new ITIModel();
 
+        [AuthFilter]
         // GET: Departments
         public ActionResult Index()
         {
             return View(db.Departments.ToList());
         }
 
+        [AuthFilter]
         // GET: Departments/Details/5
         public ActionResult Details(int? id)
         {
@@ -33,15 +36,18 @@ namespace MVC_Day_6.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.courses = db.DepartmentCourses.Where(d => d.DeptID == id).Select(a => a.Course);
             return View(department);
         }
 
+        [AuthFilter]
         // GET: Departments/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        [AuthFilter]
         // POST: Departments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -59,6 +65,7 @@ namespace MVC_Day_6.Controllers
             return View(department);
         }
 
+        [AuthFilter]
         // GET: Departments/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -74,6 +81,7 @@ namespace MVC_Day_6.Controllers
             return View(department);
         }
 
+        [AuthFilter]
         // POST: Departments/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -90,6 +98,7 @@ namespace MVC_Day_6.Controllers
             return View(department);
         }
 
+        [AuthFilter]
         // GET: Departments/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -105,6 +114,7 @@ namespace MVC_Day_6.Controllers
             return View(department);
         }
 
+        [AuthFilter]
         // POST: Departments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -123,6 +133,64 @@ namespace MVC_Day_6.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [AuthFilter]
+        [HttpGet]
+        public ActionResult addCourses(int id)
+        {
+            var allCourses = db.Courses.ToList();
+            var deptCourses = db.DepartmentCourses.Where(d => d.DeptID == id).Select(a=> a.Course);
+            var courseList = allCourses.Except(deptCourses).ToList();
+            ViewBag.dept = db.Departments.FirstOrDefault(d=> d.Id == id);  
+            return View(courseList);
+        }
+
+        [HttpPost]
+        public ActionResult addCourses(int id, Dictionary<string, bool> crs)
+        {
+            foreach (var item in crs)
+            {
+                if (item.Value == true)
+                {
+                    db.DepartmentCourses.Add(new DepartmentCourse() { DeptID = id, CourseID = int.Parse(item.Key) });
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("Details/" + id, "Departments");
+        }
+
+        [HttpGet]
+        [AuthFilter]
+        public ActionResult deleteCourses(int id)
+        {
+            var deptCourses = db.DepartmentCourses.Where(d => d.DeptID == id).Select(a => a.Course).ToList();
+            ViewBag.dept = db.Departments.FirstOrDefault(d => d.Id == id);
+            return View(deptCourses);
+        }
+
+        [HttpPost]
+        public ActionResult deleteCourses(int id, Dictionary<string, bool> crs)
+        {
+            foreach (var item in crs)
+            {
+                if (item.Value == true)
+                {
+                    int x = int.Parse(item.Key);
+                    var c = db.DepartmentCourses.FirstOrDefault(d => d.DeptID == id && d.CourseID == x);
+                    db.DepartmentCourses.Remove(c);
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("Details/"+ id, "Departments");
+        }
+
+        
+        public ActionResult manageCourse(int id)
+        {
+            var deptCourses = db.DepartmentCourses.Where(d => d.DeptID == id).Select(a => a.Course).ToList();
+            ViewBag.dept = db.Departments.FirstOrDefault(d => d.Id == id);
+            return View(deptCourses);
         }
     }
 }

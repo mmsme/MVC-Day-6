@@ -19,9 +19,11 @@ namespace MVC_Day_6
            
         }
 
-        public DbSet<Student> Students { set; get; }
-        public DbSet<Course> Courses { set; get; }
-        public DbSet<Department> Departments { set; get; }
+        public virtual DbSet<Student> Students { set; get; }
+        public virtual DbSet<Course> Courses { set; get; }
+        public virtual DbSet<Department> Departments { set; get; }
+        public virtual DbSet<DepartmentCourse> DepartmentCourses { set; get; }
+        public virtual DbSet<StudentCourse> StudentCourses { get; set; }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.

@@ -1,0 +1,26 @@
+﻿@model List<Department>
+
+@{
+    ViewBag.Title = "deleteFromDept";
+}
+
+<h2>Remove Course @ViewBag.course.CourseName From Department</h2>
+<form method="post">
+    <table class="table">
+        <tr class="thead-dark">
+            <th>Student Name</th>
+            <th>Add</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DeptName</td>
+                <td>@Html.CheckBox("depts." + item.Id.ToString())</td>
+            </tr>
+        }
+    </table>
+    <input type="submit" class="btn btn-warning" value="Remove" />
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-danger" })
+</form>
+
+

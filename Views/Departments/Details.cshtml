@@ -4,8 +4,6 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
     <h4>Department</h4>
     <hr />
@@ -17,10 +15,22 @@
         <dd>
             @Html.DisplayFor(model => model.DeptName)
         </dd>
-
     </dl>
+    <hr />
+
+    <table class="table table-bordered">
+        <tr class="thead-dark">
+            <th>Courses</th>
+        </tr>
+        @foreach (var item in ViewBag.courses)
+        {
+            <tr>
+                <td> @item.CourseName</td>
+            </tr>
+        }
+    </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class="btn btn-primary mr-2"}) 
+    @Html.ActionLink("Back to List", "Index", null,new { @class = "btn btn-danger" })
 </p>

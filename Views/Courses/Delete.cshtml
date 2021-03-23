@@ -1,4 +1,4 @@
-﻿@model MVC_Day_6.Models.Department
+﻿@model MVC_Day_6.Models.Course
 
 @{
     ViewBag.Title = "Delete";
@@ -8,15 +8,15 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Department</h4>
+    <h4>Course</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.DeptName)
+            @Html.DisplayNameFor(model => model.CourseName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DeptName)
+            @Html.DisplayFor(model => model.CourseName)
         </dd>
 
     </dl>
@@ -25,8 +25,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-success" />
-            @Html.ActionLink("Back to List", "Index", null,new { @class = "btn btn-danger" })
+            <input type="submit" value="Delete" class="btn btn-success" /> 
+            @Html.ActionLink("Back to List", "Index", null,new { @class = "btn btn-danger ml-2" })
         </div>
     }
 </div>

@@ -13,6 +13,8 @@ namespace MVC_Day_6.Models
         [Required]
         public string CourseName { set; get; }
 
-        public List<StudentCourse> StudentCourses { get; set; }
+        public virtual List<StudentCourse> StudentCourses { get; set; }
+
+        public virtual List<DepartmentCourse> DepartmentCourses { get; set; }
     }
 }

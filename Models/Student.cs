@@ -33,6 +33,6 @@ namespace MVC_Day_6.Models
         
         public virtual Department Department { set; get; }
 
-        public List<StudentCourse> StudentCourses { get; set; }
+        public virtual List<StudentCourse> StudentCourses { get; set; }
     }
 }

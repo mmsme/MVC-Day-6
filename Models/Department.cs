@@ -14,5 +14,7 @@ namespace MVC_Day_6.Models
         public string DeptName { set; get; }
 
         public virtual List<Student> Students { set; get; }
+
+        public virtual List<DepartmentCourse> DepartmentCourses { set; get; }
     }
 }
