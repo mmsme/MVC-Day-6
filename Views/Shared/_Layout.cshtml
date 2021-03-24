@@ -32,12 +32,23 @@
             </ul>
 
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-success mr-2" href="~/students/login">Login <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-danger" href="~/students/index">logout <span class="sr-only">(current)</span></a>
-                </li>
+
+                @if (Session["Email"] != null)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-danger mr-2" href="~/students/logout">logout <span class="sr-only">(current)</span></a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-success mr-2" href="~/students/login">Login <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary" href="~/students/Register">Register <span class="sr-only">(current)</span></a>
+                    </li>
+                }
+
             </ul>
         </div>
     </nav>

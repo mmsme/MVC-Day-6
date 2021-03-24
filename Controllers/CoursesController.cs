@@ -171,10 +171,11 @@ namespace MVC_Day_6.Controllers
 
         [HttpGet]
         [AuthFilter]
-        public ActionResult deleteStudents(int id)
+        public ActionResult deleteStudents(int id, int deptId)
         {
             var CourseStudents = db.StudentCourses.Where(c => c.CourseId == id).Select(c => c.Student).ToList();
             ViewBag.course = db.Courses.FirstOrDefault(c => c.CourseId == id);
+            ViewBag.dept = deptId;
             return View(CourseStudents);
         }
 

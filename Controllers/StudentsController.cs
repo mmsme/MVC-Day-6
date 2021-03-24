@@ -18,7 +18,7 @@ namespace MVC_Day_6.Controllers
         private ITIModel db = new ITIModel();
 
         // GET: Students
-        [AuthFilter]
+       
         public ActionResult Index()
         {
             var students = db.Students.Include(s => s.Department);
@@ -187,6 +187,42 @@ namespace MVC_Day_6.Controllers
             {
                 return View(model);
             }
+        }
+
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        public ActionResult Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Student s = new Student()
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Age = model.Age,
+                    Password = model.Password,
+                    Img = "/noone.png"
+
+                };
+
+                db.Students.Add(s);
+                db.SaveChanges();
+                return RedirectToAction("index", "Students");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        public ActionResult logout()
+        {
+            Session.Clear();
+            return RedirectToAction("index", "home");
         }
     }
 }
